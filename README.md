@@ -4,11 +4,11 @@ Configuring Liferay DXP for Email
 
 Open portal-setup-wizard.properties file and update from.address
 
-1) admin.email.from.address=ta5005128@gmail.com
+1) admin.email.from.address=<your gmail>@gmail.com
 
 Save and close
 
-2) Goto your gmail account <ta5005128@gmail.com> and generate app password
+2) Goto your gmail account <your gmail>@gmail.comand generate app password
 
 Login to gmail --> Settings --> Search for App Passwords --> Create it ..
 
@@ -24,7 +24,7 @@ Incoming Port
 110
 Use a Secure Network Connection [checked]
 User Name
-ta5005128@gmail.com
+<your gmail>@gmail.com
 Password
 ••••••••••••••••••••••
 Outgoing SMTP Server
@@ -34,7 +34,7 @@ Outgoing Port
 Use a Secure Network Connection
 Enable StartTLS
 User Name
-ta5005128@gmail.com
+<your gmail>@gmail.com
 Password
 ••••••••••••••••••••••
 
