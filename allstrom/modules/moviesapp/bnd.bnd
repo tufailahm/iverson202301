@@ -1,0 +1,4 @@
+Bundle-Name: moviesapp
+Bundle-SymbolicName: com.traiming.mvs
+Bundle-Version: 1.0.0
+Export-Package: com.traiming.mvs.constants
