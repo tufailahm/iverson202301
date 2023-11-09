@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.training.mms.model.Movie">
+		<field name="movieId" type="long" />
+		<field name="movieName" type="String" />
+		<field name="directorName" type="String" />
+		<field name="yearReleased" type="String" />
+		<field name="actorName" type="String" />
+	</model>
+</model-hints>

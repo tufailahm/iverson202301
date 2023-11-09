@@ -194,6 +194,116 @@ Step 5: Create a liferay module project
 
 Portlet  = java +jsp
 
+====================================
+
+Implicit Objects From Portlet:DefineObjects Taglib
+ 
+To Get all these implicit objects, <portlet:defineObjects /> must be added In the JSP, these objects holds the information about the portlet parameters and  related data.
+
+ actionRequest
+actionResponse
+eventRequest
+eventResponse
+liferayPortletRequest
+liferayPortletResponse
+portletConfig
+portletName
+portletPreferences
+portletPreferencesValues
+portletSession
+portletSessionScope
+renderRequest
+renderResponse
+resourceRequest
+resourceResponse
+searchContainerReference
+
+
+
+
+
+Hands on : 15 minutes
+
+
+
+
+
+Creating the form and capturing the value
+Validate the form
+<hr/>
+<form method="post" action="<%= addMovieURL.toString() %> ">
+User name : <input type="text" name="username"><br/>
+Password : <input type="password" name="password"><br/>
+<input type="submit" value="Login"><br/>
+</form>
+
+--
+Alloy UI is a UI framework that provides a simple API for building scalable UI applications
+HTML,CSS,Javascript
+
+
+Movie
+	movieName
+	directorName
+	yearReleased
+	actorName
+	
+
+
+Use case  :  I have to save the movie information in a database.
+
+Service Builder
+=============
+
+Create a RegistrationForm with following fields
+
+UserName	:Richard
+Password
+FirstName
+LastName
+
+Register	--> registerUser
+
+Get all the data and print
+
+
+1) Create a aui form
+2) create a service named register
+3) update service.xml
+
+Success message : Richard you have been successfully registered in our database.
+
+
+
+Please mark your attendance
+
+
+
+
+E-Attendance URL: https://feedback.iverson.com.my/ifs/eattendance.php | Class ID : 39057
+
+
+
+======================
+Navigate to another JSP page
+
+
+Use case : I want to print list of movies in a separate page
+
+
+
+Hands on : Create back button to navigate from list.jsp to view.jsp
+
+10 minutes
+
+
+
+Use case : Pagination, better look and feel for our list data
+
+Search Container
+
+
+
 
 
 

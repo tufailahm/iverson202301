@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:movieservice:movieservice-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../movieservice-api/src/main/java"
+}
+
+group = "com.training.mms"

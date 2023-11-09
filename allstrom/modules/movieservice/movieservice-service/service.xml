@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds"
+	package-path="com.training.mms">
+	<namespace>MovieNamespace</namespace>
+
+	<entity name="Movie" local-service="true" table="movies">
+
+		<column type="long" name="movieId" primary="true"></column>
+		
+		<column type="String" name="movieName" ></column>
+		<column type="String" name="directorName" ></column>
+		<column type="String" name="yearReleased" ></column>
+		<column type="String" name="actorName" ></column>
+
+	</entity>
+</service-builder>

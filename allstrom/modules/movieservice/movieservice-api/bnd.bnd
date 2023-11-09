@@ -1,0 +1,10 @@
+Bundle-Name: movieservice-api
+Bundle-SymbolicName: com.training.mms.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.training.mms.exception,\
+	com.training.mms.model,\
+	com.training.mms.service,\
+	com.training.mms.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../movieservice-service/service.xml
