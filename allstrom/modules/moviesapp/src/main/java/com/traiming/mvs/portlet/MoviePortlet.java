@@ -21,6 +21,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -125,6 +126,34 @@ public class MoviePortlet extends MVCPortlet {
 		
 		//super.processAction(actionRequest, actionResponse);
 	}
+	
+	
+	public void editMovie(ActionRequest actionRequest, ActionResponse actionResponse)
+			throws IOException, PortletException, PortalException {
+	 System.out.println("###Edit Movie called");
+		//super.processAction(actionRequest, actionResponse);
+	 	String redirectURL = ParamUtil.getString(actionRequest, "redirectURL","URLNotAvailable");
+		//	actionRequest.getParameter("movieName"); It is deprecated
+	 		long movieId = ParamUtil.getLong(actionRequest, "movieId");
+
+	 		
+			String movieName = ParamUtil.getString(actionRequest, "movieName","MovieNameNotAvailable");
+			String directorName = ParamUtil.getString(actionRequest, "directorName","directorNameNA");
+			String yearReleased = ParamUtil.getString(actionRequest, "yearReleased","yearReleasedNA");
+			String actorName = ParamUtil.getString(actionRequest, "actorName","actorNameNA");
+			
+			Movie movie = MovieLocalServiceUtil.getMovie(movieId);
+			movie.setMovieName(movieName);
+			movie.setDirectorName(directorName);
+			movie.setYearReleased(yearReleased);
+			movie.setActorName(actorName);
+			
+			MovieLocalServiceUtil.updateMovie(movie);
+			System.out.println("Movie updated successfully :"+movieId);
+			actionResponse.sendRedirect(redirectURL);
+	}
+	
+	
 	public void updateMovie(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {
 	 System.out.println("###Update Movie called");

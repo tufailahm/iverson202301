@@ -27,37 +27,46 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 </head>
 <body>
 
-<portlet:actionURL name="editMovie" var="edittMovieURL">
+<portlet:actionURL name="editMovie" var="editMovieURL">
 </portlet:actionURL>
 
 <%
 PortletURL listURL = renderResponse.createRenderURL();
 listURL.setParameter("mvcPath", "/list.jsp");
+
 %>
 
+<!--  Step 2- get the movieid clicked -->
 <% Long movieId = ParamUtil.getLong(renderRequest, "movieId"); %>
-<%= "The movie id you want to edit is :"+movieId %>
+<h2><%= "The movie id you want to edit is :"+movieId %></h2>
+
+<!--  Step 3 -- Getting movie details for the particular movie id -->
+<%
+	Movie movie = MovieLocalServiceUtil.getMovie(movieId);
+%>
 <h2>Edit Movie Form</h2>
 <aui:form name="movieForm" method="post" action="<%= editMovieURL.toString() %>">
 	<aui:input name="redirectURL" type="hidden" value="<%= listURL.toString() %>"></aui:input>
+		<aui:input name="movieId" type="hidden" value="<%= movieId %>"></aui:input>
 	
-<aui:input name="movieName" label="Movie Name" >
+	<!--  Step 4-- Use value attribute to prepopulate the text box  -->
+<aui:input name="movieName" label="Movie Name"  value="<%= movie.getMovieName() %>">
 	<aui:validator name="required" errorMessage="Please enter movie name"></aui:validator>
 	<aui:validator name="maxLength" errorMessage="Please give move name in less than 10 char">[10]</aui:validator>
 </aui:input>
 
-<aui:input name="directorName" label="Director Name" >
+<aui:input name="directorName" label="Director Name" value="<%= movie.getDirectorName() %>">
 	<aui:validator name="required" errorMessage="Please enter director name"></aui:validator>
 </aui:input>
 
-<aui:input name="yearReleased" label="Year Released" >
+<aui:input name="yearReleased" label="Year Released" value="<%= movie.getYearReleased() %>">
 	<aui:validator name="required" errorMessage="Please enter year"></aui:validator>
 		<aui:validator name="required" errorMessage="Please enter year"></aui:validator>
 		<aui:validator name="range" errorMessage="Please enter year between 1900 to 2023">[1900,2023]</aui:validator>
 	
 </aui:input>
 
-<aui:input name="actorName" label="Actor Name" >
+<aui:input name="actorName" label="Actor Name"  value="<%= movie.getActorName() %>">
 	<aui:validator name="required" errorMessage="Please enter actor name"></aui:validator>
 </aui:input>
 

@@ -9,7 +9,7 @@
 
 <portlet:defineObjects />
 
-<%= actionRequest.getAttribute("message") %>
+<%-- <%= actionRequest.getAttribute("message") %> --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -53,10 +53,10 @@
 				<liferay-ui:search-container-column-text name="Delete"
 				value="Delete" href="<%= deleteMovieURL.toString() %>" />
 				
-				
+				<!--  Step 1 -- add edit link and parameters -->
 				<portlet:renderURL  var="editURL">
 						<portlet:param name="mvcPath" value="/editMovie.jsp"/>
-							<portlet:param name="movieId" value="<%= Long.toString(movie.getMovieId()) %>"/>
+						<portlet:param name="movieId" value="<%= Long.toString(movie.getMovieId()) %>"/>
 			</portlet:renderURL>
 				
 				<liferay-ui:search-container-column-text name="Edit"
