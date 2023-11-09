@@ -303,17 +303,24 @@ Use case : Pagination, better look and feel for our list data
 Search Container
 
 
+<liferay-ui:search-iterator
+	searchContainer="<%= searchContainer %>" />
+
+	
+
+Delete Operation
+=============
+
+Hands on : After saving a movie, which should be automatically redirected to list.jsp
+
+a) Display a success message "Movies stored successfully"
 
 
+15 minutes
 
 
-
-
-
-
-
-
-
+Edit functionality
+===============
 
 
 

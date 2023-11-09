@@ -1,6 +1,7 @@
 package com.traiming.mvs.portlet;
 
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.traiming.mvs.constants.MoviePortletKeys;
@@ -83,16 +84,17 @@ public class MoviePortlet extends MVCPortlet {
 	
 	public void addMovie(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {
+		String redirectURL = ParamUtil.getString(actionRequest, "redirectURL","URLNotAvailable");
 		//	actionRequest.getParameter("movieName"); It is deprecated
 			String movieName = ParamUtil.getString(actionRequest, "movieName","MovieNameNotAvailable");
 			String directorName = ParamUtil.getString(actionRequest, "directorName","directorNameNA");
 			String yearReleased = ParamUtil.getString(actionRequest, "yearReleased","yearReleasedNA");
 			String actorName = ParamUtil.getString(actionRequest, "actorName","actorNameNA");
 
-			System.out.println("###Add Movie called "+movieName+ "  "+directorName+ "  "+yearReleased+ "  "+actorName);
-			
-		
-				Movie movie = MovieLocalServiceUtil.createMovie(CounterLocalServiceUtil.increment());
+			actionRequest.setAttribute("message", "Movie saved successfully");
+			System.out.println("###Add Movie called###$ "+movieName+ "  "+directorName+ "  "+yearReleased+ "  "+actorName);
+
+			Movie movie = MovieLocalServiceUtil.createMovie(CounterLocalServiceUtil.increment());
 				movie.setMovieName(movieName);
 				movie.setDirectorName(directorName);
 				movie.setYearReleased(yearReleased);
@@ -102,11 +104,25 @@ public class MoviePortlet extends MVCPortlet {
 
 				System.out.println("###Movie added successfully");
 		//super.processAction(actionRequest, actionResponse);
+				
+				//here we need to redirect to list.jsp
+				
+				
+				actionResponse.sendRedirect(redirectURL);
 	}
 	
 	public void deleteMovie(ActionRequest actionRequest, ActionResponse actionResponse)
-			throws IOException, PortletException {
-	 System.out.println("###Delete Movie called");
+			throws IOException, PortletException, PortalException {
+		
+		long movieId = ParamUtil.getLong(actionRequest, "movieId");
+		String  redirectURL = ParamUtil.getString(actionRequest, "redirectURL");
+
+		MovieLocalServiceUtil.deleteMovie(movieId);
+		
+		System.out.println("###Delete Movie called and deleted successfully : "+movieId);
+		
+		actionResponse.sendRedirect(redirectURL);
+		
 		//super.processAction(actionRequest, actionResponse);
 	}
 	public void updateMovie(ActionRequest actionRequest, ActionResponse actionResponse)

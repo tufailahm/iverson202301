@@ -27,6 +27,7 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 	<h2>About Liferay : <%= renderRequest.getAttribute("message") %></h2>
 </p>
 
+
 <portlet:actionURL name="addMovie" var="addMovieURL">
 </portlet:actionURL>
 <portlet:actionURL name="deleteMovie" var="deleteMovieURL">
@@ -53,9 +54,15 @@ Password : <input type="password" name="password"><br/>
 </form>
 
 <hr/>
+<%
+PortletURL listURL = renderResponse.createRenderURL();
+listURL.setParameter("mvcPath", "/list.jsp");
+%>
+
 <h2>Add Movie Form</h2>
 <aui:form name="movieForm" method="post" action="<%= addMovieURL.toString() %>">
-
+	<aui:input name="redirectURL" type="hidden" value="<%= listURL.toString() %>"></aui:input>
+	
 <aui:input name="movieName" label="Movie Name" >
 	<aui:validator name="required" errorMessage="Please enter movie name"></aui:validator>
 	<aui:validator name="maxLength" errorMessage="Please give move name in less than 10 char">[10]</aui:validator>
