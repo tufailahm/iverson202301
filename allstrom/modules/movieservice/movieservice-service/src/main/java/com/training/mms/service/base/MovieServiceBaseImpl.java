@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.training.mms.model.Movie;
 import com.training.mms.service.MovieService;
 import com.training.mms.service.MovieServiceUtil;
+import com.training.mms.service.persistence.MovieFinder;
 import com.training.mms.service.persistence.MoviePersistence;
 
 import java.lang.reflect.Field;
@@ -137,6 +138,9 @@ public abstract class MovieServiceBaseImpl
 
 	@Reference
 	protected MoviePersistence moviePersistence;
+
+	@Reference
+	protected MovieFinder movieFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

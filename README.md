@@ -324,6 +324,185 @@ Edit functionality
 
 
 
+=========================================
+
+
+Inter portlet communication
+====================
+1) Public render Parameters
+2) Portlet Session
+3) Liferay fire.ON 
+
+
+PRP ::
+
+Use case : 
+
+Weather portlet	- Chicago has 23'C temparature
+
+
+City Portlet
+
+City Name : [ Chicago  ]
+
+Submit
+
+2) Portlet Session
+
+PortletSession		-entire portal
+
+
+WeatherPortlet 	--call a rest service 
+
+USe case : WeatherPortlet has to share the data with city portlet.
+
+
+
+view.jsp of weather portlet
+<portlet:actionURL name="setTemparature" var="sendURL">
+</portlet:actionURL>
+
+<hr/>
+
+<h2>Please fill the temperature of : <%= cityName %></h2>
+<aui:form name="formweather" method="POST" action="<%=sendURL.toString()%>">
+	<aui:input name="temperature" label="Temperature">
+		<aui:validator name="required" errorMessage="Please enter temperature"></aui:validator>
+		<aui:validator name="maxLength"
+			errorMessage="Please give move name in less than 10 char">[10]</aui:validator>
+	</aui:input>
+	
+	<input type="submit" value="Set Temperature for "+<%= cityName %> />
+
+</aui:form>
+
+
+WeatherPortlet.java
+
+		"com.liferay.portlet.private-session-attributes=false"
+
+
+	public void setTemparature(ActionRequest actionRequest, ActionResponse actionResponse)
+			throws IOException, PortletException {
+			String temperature = ParamUtil.getString(actionRequest, "temperature");
+			PortletSession portletSession =actionRequest.getPortletSession();
+			portletSession.setAttribute("CURRENT_TEMPERATURE", temperature, PortletSession.APPLICATION_SCOPE);
+			System.out.println("Set Temperature to PortletSession value of temperature set to :"+temperature);
+	}
+
+====================
+
+City Portlet
+
+view.jsp
+<portlet:actionURL name="recieveTemperature" var="recieveTemperatureURL">
+</portlet:actionURL>
+<h2><%= "The temperature recieved is :"%></h2>
+
+<aui:form name="form" method="POST" action="<%=recieveTemperatureURL.toString()%>">
+	<input type="submit" value="Recieve Weather Details" />
+</aui:form>
+
+----------CityPortlet.java
+
+		"com.liferay.portlet.private-session-attributes=false"
+
+
+	public void recieveTemperature(ActionRequest actionRequest, ActionResponse actionResponse)
+			throws IOException, PortletException {
+	
+		PortletSession portletSession =actionRequest.getPortletSession();
+		String temperature = (String) portletSession.getAttribute("CURRENT_TEMPERATURE", PortletSession.APPLICATION_SCOPE);
+		
+		System.out.println("Getting Temperature from PortletSession value of temperature is :"+temperature);
+	}
+
+
+
+
+
+Last day to do
+
+Mark the attendance
+Iverson Evaluation System (Online) : https://feedback.iverson.com.my/ifs | Class ID :39057
+Please take a group photo with all participants & trainer open cam before training finish.
+
+
+
+Indexer Post Processor
+===============
+The Indexer Post Processor sample demonstrates using the IndexerPostProcessor interface, which is provided to customize search queries and documents before they’re sent to the search engine, and/or customize result summaries when they’re returned to end users. This basic demonstration prints a message in the log when one of the *IndexerPostProcessor methods is called.
+
+To see this sample’s messages in Liferay DXP’s log, you must add a logging category to the portal. Navigate to Control Panel → Configuration → Server Administration and click on Log Levels → Add Category. Then fill out the form:
+
+Logger Name: com.liferay.blade.samples.indexerpostprocessor
+Log Level: INFO
+Once you save the new logging category, you can witness the sample indexer post processor in action. For example, you can test the sample’s BlogsIndexerPostProcessor implementation by creating a blog entry. When you publish the blog, the following message is logged in the console:
+
+
+Custom css in jsp
+=============
+
+
+view.jsp can be customized as well
+=======================
+
+
+=======Applying built in css
+<h2 class="hellapp">Hi Mohammad Tufail Ahmed   </h2>
+
+=======custom view.jsp and custom css
+create styles.css inside css 
+.hellapp {
+    color: yellow;
+}
+
+Change Portlet.java 
+		"javax.portlet.init-param.view-template=/html/view.jsp",
+		"com.liferay.portlet.header-portlet-css=/css/styles.css",
+
+
+
+Gradle --> deploy 
+============
+
+
+
+
+
+==========IPC
+Third way is Liferay.FIRE and Liferay.ON javascript methods
+
+
+
+CityPortlet
+=================
+<script>
+	function sendInformation(){
+		var frm = document.<portlet:namespace/>myform1;
+		var data = frm.<portlet:namespace/>information.value;
+		var payLoad = { informationToBeShared :data }
+		Liferay.fire("cityPortletInformationEvent",payLoad);
+	}
+
+</script>
+<aui:form name="myform1" >
+	<aui:input name="information"/> 
+	<aui:button value="Send Informmation" onClick="javascript:sendInformation();" />
+</aui:form>
+
+
+WeatherPortlet
+=============
+
+<aui:script>
+AUI().ready(function(A)
+	{
+		Liferay.on("cityPortletInformationEvent",function(payLoad){
+			alert("I am in Weather Portlet Recvd :" + payLoad.informationToBeShared);
+		});
+	});
+</aui:script>
 
 
 
@@ -333,10 +512,88 @@ Edit functionality
 
 
 
+====================
+Custom Query and Dynamic Query
+========================
+
+Use case : I want to search by movie name in wild card
+
+
+like "p"
+
+select * from movies where ( movieName like '%a%')
+
+
+select * from movies where ( directorName = ?)
 
 
 
+already defined methods
+findByMovieId
+create
 
 
+Step 1:
+ /movieservice-service/src/main/resources/META-INF/custom-sql
+
+Step 2: 
+create default.xml file inside /movieservice-service/src/main/resources/META-INF/custom-sql
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+		<sql id="com.training.mms.service.persistence.MovieFinderImpl.findMovie">
+				<![CDATA[
+						SELECT 
+									*
+						FROM
+									movies
+									
+						WHERE						
+									(movieName like ?)				
+				]]>
+		</sql>
+</custom-sql>
+
+Step 3:
+public class MovieFinderImpl extends MovieFinderBaseImpl implements MovieFinder{
+
+	public List<Movie> findMovie(String movieName){
+		
+		return null;
+	}
+}
+
+** error will come
+
+**build the service and check import will come
+
+Step 4:
+	public List<Movie> findMovie(String movieName){	
+	
+		Session session = openSession();
+		String sql = CustomSQLUtil.get(FIND_MOVIES);
+		SQLQuery sqlQuery = session.createSQLQuery(sql);
+		sqlQuery.addEntity("Movie", MovieImpl.class);
+		
+		QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+		queryPos.add(movieName);
+		
+		return (List<Movie>)sqlQuery.list();
+	}
+
+Step 5:
+MovieLocalServiceImpl
+
+	public String sayHello() {
+		return "Hi Mohammad Tufail Ahmed";
+	}
+	public List<Movie> findMovies(String movieName){
+		return movieFinder.findMovie(movieName);
+	}
+
+
+build the service
+refresh gradle
+
+Check in MovierPortlet.java, MovieLocalServiceUtil.findMovies should come !!
 
 

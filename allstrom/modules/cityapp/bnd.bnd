@@ -1,0 +1,4 @@
+Bundle-Name: cityapp
+Bundle-SymbolicName: com.training.cms
+Bundle-Version: 1.0.0
+Export-Package: com.training.cms.constants

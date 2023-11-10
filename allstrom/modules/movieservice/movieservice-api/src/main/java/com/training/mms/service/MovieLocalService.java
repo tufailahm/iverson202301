@@ -200,6 +200,10 @@ public interface MovieLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Movie fetchMovie(long movieId);
 
+	public List<Movie> findMovies(String movieName);
+
+	public List<Movie> findMoviesByYear(String yearReleased);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -252,6 +256,8 @@ public interface MovieLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	public String sayHello();
 
 	/**
 	 * Updates the movie in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

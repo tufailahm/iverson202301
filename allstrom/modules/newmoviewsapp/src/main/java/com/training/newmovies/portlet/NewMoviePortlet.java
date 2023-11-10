@@ -1,4 +1,13 @@
-package com.traiming.mvs.portlet;
+package com.training.newmovies.portlet;
+
+import com.training.mms.model.Movie;
+import com.training.mms.service.MovieLocalService;
+import com.training.mms.service.MovieLocalServiceUtil;
+import com.training.newmovies.constants.NewMoviePortletKeys;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -7,14 +16,6 @@ import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.traiming.mvs.constants.MoviePortletKeys;
-import com.training.mms.model.Movie;
-import com.training.mms.service.MovieLocalService;
-import com.training.mms.service.MovieLocalServiceUtil;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -33,13 +34,22 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author tufai
  */
-@Component(immediate = true, property = { "com.liferay.portlet.display-category=category.movie",
-		"com.liferay.portlet.header-portlet-css=/css/main.css", "com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Movie", "javax.portlet.init-param.template-path=/",
-		"javax.portlet.init-param.view-template=/view.jsp", "javax.portlet.name=" + MoviePortletKeys.MOVIE,
+@Component(
+	immediate = true,
+	property = {
+		"com.liferay.portlet.display-category=category.sample",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
+		"com.liferay.portlet.instanceable=true",
+		"javax.portlet.display-name=NewMovie",
+		"javax.portlet.init-param.template-path=/",
+		"javax.portlet.init-param.view-template=/view.jsp",
+		"javax.portlet.name=" + NewMoviePortletKeys.NEWMOVIE,
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user" }, service = Portlet.class)
-public class MoviePortlet extends MVCPortlet {
+		"javax.portlet.security-role-ref=power-user,user"
+	},
+	service = Portlet.class
+)
+public class NewMoviePortlet extends MVCPortlet {
 	String loggedInStatus;
 	Date loggedInDate;
 

@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.training.mms.model.Movie;
 import com.training.mms.service.MovieLocalService;
 import com.training.mms.service.MovieLocalServiceUtil;
+import com.training.mms.service.persistence.MovieFinder;
 import com.training.mms.service.persistence.MoviePersistence;
 
 import java.io.Serializable;
@@ -452,6 +453,9 @@ public abstract class MovieLocalServiceBaseImpl
 
 	@Reference
 	protected MoviePersistence moviePersistence;
+
+	@Reference
+	protected MovieFinder movieFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

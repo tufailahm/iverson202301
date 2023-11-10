@@ -208,6 +208,14 @@ public class MovieLocalServiceUtil {
 		return getService().fetchMovie(movieId);
 	}
 
+	public static List<Movie> findMovies(String movieName) {
+		return getService().findMovies(movieName);
+	}
+
+	public static List<Movie> findMoviesByYear(String yearReleased) {
+		return getService().findMoviesByYear(yearReleased);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -272,6 +280,10 @@ public class MovieLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static String sayHello() {
+		return getService().sayHello();
 	}
 
 	/**

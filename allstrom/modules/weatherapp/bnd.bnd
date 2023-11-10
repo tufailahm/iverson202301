@@ -1,0 +1,4 @@
+Bundle-Name: weatherapp
+Bundle-SymbolicName: com.training.wms
+Bundle-Version: 1.0.0
+Export-Package: com.training.wms.constants

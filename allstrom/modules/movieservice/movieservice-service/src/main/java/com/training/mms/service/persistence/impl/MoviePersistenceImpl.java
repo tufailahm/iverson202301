@@ -504,11 +504,8 @@ public class MoviePersistenceImpl
 	 */
 	@Override
 	public int countAll() {
-		/*
-		 * Long count = (Long)finderCache.getResult( _finderPathCountAll,
-		 * FINDER_ARGS_EMPTY);
-		 */
-		Long count=null;
+		Long count = null;
+
 		if (count == null) {
 			Session session = null;
 

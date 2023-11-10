@@ -1,0 +1,4 @@
+Bundle-Name: newmoviewsapp
+Bundle-SymbolicName: com.training.newmovies
+Bundle-Version: 1.0.0
+Export-Package: com.training.newmovies.constants

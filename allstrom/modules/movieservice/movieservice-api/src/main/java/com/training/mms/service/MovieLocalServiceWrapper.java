@@ -226,6 +226,20 @@ public class MovieLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.training.mms.model.Movie> findMovies(
+		String movieName) {
+
+		return _movieLocalService.findMovies(movieName);
+	}
+
+	@Override
+	public java.util.List<com.training.mms.model.Movie> findMoviesByYear(
+		String yearReleased) {
+
+		return _movieLocalService.findMoviesByYear(yearReleased);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -300,6 +314,11 @@ public class MovieLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _movieLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public String sayHello() {
+		return _movieLocalService.sayHello();
 	}
 
 	/**
